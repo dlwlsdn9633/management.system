@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.management.system.mapper.FileObjectMapper">
+    <insert
+        id="insert"
+        parameterType="com.service.management.system.domain.fileObject.FileObject"
+    >
+        <selectKey
+                keyProperty="no"
+                resultType="int"
+                order="AFTER"
+        >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO FileObjects (
+            commonNo,
+            tablename,
+            originalFilename,
+            storeFilename
+        ) VALUES (
+            #{commonNo},
+            #{tablename},
+            #{originalFilename},
+            #{storeFilename}
+        )
+    </insert>
+</mapper>

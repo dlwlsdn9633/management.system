@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.management.system.mapper.ProjectMapper">
+    <sql id="searchSql">
+        <where>
+            <include refid="search"></include>
+        </where>
+    </sql>
+    <sql id="search">
+        <if test="userFk != null">
+            AND userFk=#{userFk}
+        </if>
+    </sql>
+    <select
+        id="list"
+        parameterType="com.service.management.system.domain.project.Project"
+        resultType="com.service.management.system.domain.project.Project"
+    >
+        SELECT *
+        FROM projects
+        <include refid="searchSql"></include>
+    </select>
+    <insert
+        id="insert"
+        parameterType="com.service.management.system.domain.project.Project"
+    >
+        <selectKey
+            keyProperty="no"
+            resultType="int"
+            order="AFTER"
+        >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO projects (
+        areaFk,
+        contents,
+        requestDate,
+        expectedDate,
+        completeDate,
+        projectType,
+        registerDate
+        ) VALUES (
+        #{areaFk},
+        #{contents},
+        #{requestDate},
+        #{expectedDate},
+        #{completeDate},
+        #{projectType},
+        #{registerDate}
+        )
+    </insert>
+</mapper>

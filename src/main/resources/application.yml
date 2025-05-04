@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: management.system
+  datasource:
+    url: jdbc:mysql://localhost:3306/management?serverTimezone=Asia/Seoul
+    username: admin
+    password: 1234567890
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+file:
+  dir: C:\\management.system\\uploads
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.service.management.system.domain
+  type-handlers-package: com.service.management.system.config.mybatis
+
+logging:
+  level:
+    org.mybatis: DEBUG
+    com.service.management.system.mapper: DEBUG
