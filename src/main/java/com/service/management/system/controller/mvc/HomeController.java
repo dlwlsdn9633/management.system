@@ -1,4 +1,4 @@
-package com.service.management.system.controller;
+package com.service.management.system.controller.mvc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

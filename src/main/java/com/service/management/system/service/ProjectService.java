@@ -7,6 +7,7 @@ import com.service.management.system.domain.project.ProjectType;
 import com.service.management.system.dto.project.ProjectWriteDto;
 import com.service.management.system.mapper.FileObjectMapper;
 import com.service.management.system.mapper.ProjectMapper;
+import com.service.management.system.repository.area.AreaRepository;
 import com.service.management.system.repository.fileObject.FileObjectRepository;
 import com.service.management.system.repository.project.ProjectRepository;
 import com.service.management.system.util.FileStore;
@@ -31,7 +32,6 @@ public class ProjectService {
                 .projectType(ProjectType.NOT_STARTED)
                 .areaFk(projectWriteDto.getAreaFk())
                 .build();
-
         int insertResult = projectRepository.insert(project);
 
         if (insertResult > 0) {

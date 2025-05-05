@@ -1,4 +1,4 @@
-package com.service.management.system.controller;
+package com.service.management.system.controller.mvc;
 
 import com.service.management.system.service.MemberService;
 import lombok.RequiredArgsConstructor;

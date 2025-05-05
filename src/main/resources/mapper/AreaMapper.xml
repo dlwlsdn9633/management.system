@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+    namespace="com.service.management.system.mapper.AreaMapper"
+>
+    <sql id="searchSql">
+        <where>
+            <include refid="search"></include>
+        </where>
+    </sql>
+    <sql id="search">
+        <if test="areaType != 0">
+            AND areaType=#{areaType}
+        </if>
+    </sql>
+    <select
+        id="list"
+        parameterType="com.service.management.system.domain.area.Area"
+        resultType="com.service.management.system.domain.area.Area"
+    >
+        SELECT *
+        FROM areas
+        <include refid="searchSql"></include>
+        ORDER BY no ASC
+    </select>
+</mapper>

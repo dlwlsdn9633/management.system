@@ -1,8 +1,9 @@
 package com.service.management.system.domain.member;
 
 public enum MemberType {
-    DEPARTMENT(0),
-    MAJOR(1);
+    DEFAULT(0),
+    DEPARTMENT(1),
+    MAJOR(2);
     private final int code;
     MemberType(int code) {
         this.code = code;
@@ -10,7 +11,7 @@ public enum MemberType {
     public int getCode() {
         return code;
     }
-    public MemberType fromCode(int code) {
+    public static MemberType fromCode(int code) {
         for (MemberType type : MemberType.values()) {
             if (type.getCode() == code) {
                 return type;

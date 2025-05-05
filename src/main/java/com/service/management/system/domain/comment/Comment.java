@@ -1,9 +1,14 @@
 package com.service.management.system.domain.comment;
 
 import com.service.management.system.domain.Common;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Comment extends Common {
     private int projectFk;
     private int userFk;

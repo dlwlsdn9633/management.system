@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+    namespace="com.service.management.system.mapper.MemberMapper"
+>
+    <sql id="searchSql">
+        <where>
+            <include refid="search"></include>
+        </where>
+    </sql>
+    <sql id="search">
+        <if test="memberType != null">
+            AND memberType=#{memberType}
+        </if>
+        <if test="majorType != null">
+            AND majorType=#{majorType}
+        </if>
+    </sql>
+    <select
+        id="list"
+        parameterType="com.service.management.system.domain.member.Member"
+        resultType="com.service.management.system.domain.member.Member"
+    >
+        SELECT *
+        FROM members
+        <include refid="searchSql"></include>
+    </select>
+
+</mapper>

@@ -9,7 +9,7 @@ public enum Role {
     public int getCode() {
         return code;
     }
-    public Role fromCode(int code) {
+    public static Role fromCode(int code) {
         for (Role role : Role.values()) {
             if (role.code == code) {
                 return role;

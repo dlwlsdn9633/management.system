@@ -6,11 +6,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
-@Builder
-@RequiredArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Builder
 public class Project extends Common {
     private int areaFk;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

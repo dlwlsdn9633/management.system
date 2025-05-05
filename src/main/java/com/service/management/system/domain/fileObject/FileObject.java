@@ -4,11 +4,11 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@EqualsAndHashCode
-@Builder
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class FileObject {
     private int no;
     private String tablename;
