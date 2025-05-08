@@ -14,4 +14,7 @@ public class MemberService {
     public List<Member> list(Member member) {
         return memberRepository.list(member);
     }
+    public Member read(Member member) {
+        return memberRepository.read(member);
+    }
 }

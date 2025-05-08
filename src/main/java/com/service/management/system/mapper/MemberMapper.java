@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface MemberMapper {
     List<Member> list(Member member);
+    Member read(Member member);
 }

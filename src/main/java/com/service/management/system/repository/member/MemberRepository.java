@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface MemberRepository {
     List<Member> list(Member member);
+    Member read(Member member);
 }

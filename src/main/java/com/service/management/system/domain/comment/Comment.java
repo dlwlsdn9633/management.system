@@ -2,6 +2,7 @@ package com.service.management.system.domain.comment;
 
 import com.service.management.system.domain.Common;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
@@ -11,7 +12,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 public class Comment extends Common {
     private int projectFk;
-    private int userFk;
+    private int memberFk;
     private String contents;
     // groupNo: 그룹 ID를 의미한다.
     private int groupNo;
@@ -19,4 +20,5 @@ public class Comment extends Common {
     private int step;
     // depth: 깊이를 의미한다.
     private int depth;
+    private int commentMaxStep;
 }

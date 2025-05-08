@@ -10,6 +10,22 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
+  thymeleaf:
+    cache: false
+
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: theleanstar
+    password: Whakswkdwk6374!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
 
 file:
   dir: C:\\management.system\\uploads

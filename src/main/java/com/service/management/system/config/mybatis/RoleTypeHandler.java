@@ -15,19 +15,16 @@ public class RoleTypeHandler extends BaseTypeHandler<Role> {
     public void setNonNullParameter(PreparedStatement ps, int i, Role parameter, JdbcType jdbcType) throws SQLException {
         ps.setInt(i, parameter.getCode());
     }
-
     @Override
     public Role getNullableResult(ResultSet rs, String columnName) throws SQLException {
         int code = rs.getInt(columnName);
         return Role.fromCode(code);
     }
-
     @Override
     public Role getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         int code = rs.getInt(columnIndex);
         return Role.fromCode(code);
     }
-
     @Override
     public Role getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         int code = cs.getInt(columnIndex);

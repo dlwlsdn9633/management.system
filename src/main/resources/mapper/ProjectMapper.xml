@@ -10,8 +10,8 @@
         </where>
     </sql>
     <sql id="search">
-        <if test="userFk != null">
-            AND userFk=#{userFk}
+        <if test="memberFk != null">
+            AND memberFk=#{memberFk}
         </if>
     </sql>
     <select
@@ -23,6 +23,36 @@
         FROM projects
         <include refid="searchSql"></include>
     </select>
+    <select
+        id="read"
+        parameterType="com.service.management.system.domain.project.Project"
+        resultType="com.service.management.system.domain.project.Project"
+    >
+        SELECT
+        p.no,
+        p.contents,
+        p.requestDate,
+        p.expectedDate,
+        p.completeDate,
+        p.projectType,
+        p.registerDate,
+        a.contents AS area,
+        GROUP_CONCAT(DISTINCT pm.memberFk) AS memberFks,
+        GROUP_CONCAT(DISTINCT fo.storeFilename) AS storeFilenames,
+        MAX(c.groupNo) AS commentMaxGno
+        FROM projects p
+        LEFT OUTER JOIN fileobjects fo
+        ON p.no = fo.commonNo AND fo.tablename = 'projects'
+        INNER JOIN project_member pm
+        ON pm.projectFk = p.no
+        INNER JOIN areas a
+        ON a.no = p.areaFk
+        LEFT OUTER JOIN comments c
+        ON p.no = c.projectFk
+        WHERE p.no = #{no}
+        GROUP BY pm.projectFk, fo.commonNo, c.projectFk;
+    </select>
+    
     <insert
         id="insert"
         parameterType="com.service.management.system.domain.project.Project"
@@ -40,16 +70,14 @@
         requestDate,
         expectedDate,
         completeDate,
-        projectType,
-        registerDate
+        projectType
         ) VALUES (
         #{areaFk},
         #{contents},
         #{requestDate},
         #{expectedDate},
         #{completeDate},
-        #{projectType},
-        #{registerDate}
+        #{projectType}
         )
     </insert>
 </mapper>

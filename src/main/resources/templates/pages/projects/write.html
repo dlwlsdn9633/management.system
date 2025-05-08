@@ -8,12 +8,19 @@
 <body>
 <form method="post" action="/projects/write" enctype="multipart/form-data">
 
+    <div id="selectedMembers">
+
+    </div>
+
     <select id="memberTypeSelect">
         <option value="">-- 부서 및 학과 선택 --</option>
         <option value="1">부서</option>
         <option value="2">학과</option>
     </select>
     <div id="detailMemberTypes">
+    </div>
+    <div>
+        <button onclick="onClickAddBtn(event, this)">추가</button>
     </div>
 
 
@@ -29,14 +36,66 @@
         <option value="">-- 영역을 먼저 선택 하세요 --</option>
     </select>
     <textarea name="contents"></textarea>
+    <input type="date" name="requestDate" />
     <input type="date" name="expectedDate" />
-    <input type="date" name="completeDate" />
     <input type="file" name="files" multiple />
     <input type="submit" value="제출" />
 </form>
 
 
 <script lang="javascript">
+        function onDeleteMember(event, obj) {
+            event.preventDefault();
+            event.stopPropagation();
+            $(obj).parent().remove();
+        }
+
+        function onClickAddBtn(event, obj) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            // memberType
+            const memberType = $("#memberTypeSelect").val();
+            // majorType
+            const majorType = $("#majorSelect").val();
+            // memberFk
+            const memberFk = $("select[name='memberFk']").val();
+            $.ajax({
+                url: `/v1/members/${memberFk}`,
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        if (memberType === "1") {
+                            const departmentName = response.data.name;
+                            const departmentHtml = `
+                                <div class="selected-member" data-type="department" data-no="${response.data.no}">
+                                    <input type="hidden" name="memberFks" value="${response.data.no}" />
+                                    <span>부서 - ${departmentName}</span>
+                                    <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
+                                </div>
+                            `;
+                            $("#selectedMembers").append(departmentHtml);
+                        } else if (memberType === "2") {
+
+                            const majorName = response.data.name;
+                            const majorTypeLabel = response.data.majorTypeLabel;
+                            const majorHtml = `
+                                <div class="selected-member" data-type="major" data-no="${response.data.no}">
+                                    <input type="hidden" name="memberFks" value="${response.data.no}" />
+                                    <span>학과 - ${majorName} (${majorTypeLabel})</span>
+                                    <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
+                                </div>
+                            `;
+                            $("#selectedMembers").append(majorHtml);
+                        }
+                    }
+                },
+                error: function() {
+
+                }
+            })
+        }
+
         $(document).on('change', '#majorSelect', function() {
             if ($("#member_select_box").length > 0) {
                 $("#member_select_box").remove();

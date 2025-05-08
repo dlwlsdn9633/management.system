@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class ProjectWriteDto {
-    private List<Integer> userFks;
+    private List<Integer> memberFks;
     private List<MultipartFile> files;
     private int areaFk;
     private String contents;

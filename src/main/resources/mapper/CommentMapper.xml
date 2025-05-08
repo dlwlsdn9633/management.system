@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.management.system.mapper.CommentMapper">
+    <sql id="searchSql">
+        <where>
+            <include refid="search"></include>
+        </where>
+    </sql>
+    <sql id="search">
+        <if test="projectFk != 0">
+            AND c.projectFk=#{projectFk}
+        </if>
+    </sql>
+    <select
+        id="list"
+        parameterType="com.service.management.system.domain.comment.Comment"
+        resultType="com.service.management.system.domain.comment.Comment"
+    >
+        SELECT
+        c.no,
+        c.projectFk,
+        c.memberFk,
+        c.contents,
+        c.groupNo,
+        c.step,
+        c.depth,
+        c.registerDate,
+        GROUP_CONCAT(storeFilename) AS storeFilenames,
+        GROUP_CONCAT(originalFilename) AS originalFilenames,
+        IFNULL(MAX(cc.step), 0) AS commentMaxStep
+        FROM comments c
+        LEFT JOIN fileobjects fo
+        ON c.no = fo.commonNo AND fo.tablename = 'comments'
+        LEFT JOIN comments cc
+        ON c.groupNo = cc.groupNo AND c.depth = cc.depth
+        <include refid="searchSql"></include>
+        GROUP BY c.no
+        ORDER BY groupNo ASC, step ASC, depth ASC, registerDate ASC
+    </select>
+    <insert
+        id="insert"
+        parameterType="com.service.management.system.domain.comment.Comment"
+    >
+        <selectKey
+            keyProperty="no"
+            resultType="int"
+            order="AFTER"
+        >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO comments (
+        projectFk,
+        memberFk,
+        contents,
+        groupNo,
+        step,
+        depth
+        ) VALUES (
+        #{projectFk},
+        #{memberFk},
+        #{contents},
+        #{groupNo},
+        #{step},
+        #{depth}
+        )
+    </insert>
+    <update
+        id="updateStep"
+        parameterType="com.service.management.system.domain.comment.Comment"
+    >
+        UPDATE comments SET
+        step = step + 1
+        WHERE groupNo=#{groupNo} AND step > #{step}
+    </update>
+</mapper>

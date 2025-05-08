@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+    namespace="com.service.management.system.mapper.ProjectMemberMapper"
+>
+    <sql id="searchSql">
+        <where>
+            <include refid="search"></include>
+        </where>
+    </sql>
+
+    <sql id="search">
+        <if test="memberFk != 0">
+            AND project_member.memberFk = #{memberFk}
+        </if>
+    </sql>
+
+
+    <insert
+        id="insert"
+        parameterType="com.service.management.system.domain.projectMember.ProjectMember"
+    >
+        INSERT INTO project_member (
+            projectFk,
+            memberFk
+        ) VALUES (
+            #{projectFk},
+            #{memberFk}
+        )
+    </insert>
+
+    <select
+        id="list"
+        parameterType="com.service.management.system.domain.projectMember.ProjectMember"
+        resultType="com.service.management.system.domain.projectMember.ProjectMember"
+    >
+        SELECT *
+        FROM project_member
+        INNER JOIN projects
+        ON project_member.projectFk = projects.no
+        <include refid="searchSql"></include>
+    </select>
+</mapper>

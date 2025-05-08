@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RANK PAGE</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id="rankContainer">
+    <div th:each="rank : ${rankList}">
+        <div th:text="${rank.name}">이름</div>
+        <div>
+            <div>
+                진행률
+            </div>
+            <div>
+                <div th:text="${rank.total}">전체</div>
+                <div th:text="${rank.completeProjectsNum}">완료 프로젝트 수</div>
+                <div th:text="${rank.ratio}">완료율</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    $(document).ready(function() {
+        let currentCode = 2;
+        function loadRankData() {
+            $("#rankContainer").load(`/members/fragments/rank/${currentCode}`, function(response, status, xhr) {
+                if (status === "error") {
+                    console.log("로드 실패");
+                }
+
+            });
+            currentCode = currentCode === 2 ? 1 : 2;
+        }
+
+        // 최초 실행 + 이후 5초 간격으로 반복
+        loadRankData();
+        setInterval(loadRankData, 5000);
+    })
+
+
+</script>
+</html>

@@ -1,0 +1,13 @@
+<div th:fragment="rankItem (rank)">
+    <div class="rank-item" th:if="${rank != null}">
+        <div th:text="${rank.name}">이름</div>
+        <div>
+            <div>진행률</div>
+            <div>
+                <div th:text="${rank.total}">전체</div>
+                <div th:text="${rank.completeProjectsNum}">완료</div>
+                <div th:text="${rank.ratio}">완료율</div>
+            </div>
+        </div>
+    </div>
+</div>

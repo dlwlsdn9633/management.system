@@ -15,17 +15,57 @@
             AND memberType=#{memberType}
         </if>
         <if test="majorType != null">
-            AND majorType=#{majorType}
+            AND members.majorType=#{majorType}
+        </if>
+        <if test="no != 0">
+            AND members.no=#{no}
         </if>
     </sql>
+
+    <sql id="joinProjects">
+        LEFT JOIN project_member
+        ON members.no = project_member.memberFk
+        LEFT JOIN projects
+        ON project_member.projectFk = projects.no
+    </sql>
+
     <select
         id="list"
         parameterType="com.service.management.system.domain.member.Member"
         resultType="com.service.management.system.domain.member.Member"
     >
         SELECT *
+        , COUNT(*) AS total
+        , SUM(CASE WHEN projectType = 2 THEN 1 ELSE 0 END) AS completeProjectsNum
+        , (SUM(CASE WHEN projectType = 2 THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS ratio
         FROM members
+        <include refid="joinProjects"></include>
         <include refid="searchSql"></include>
+        GROUP BY members.no
+        <if test="orderByString != null and orderByString.length > 0">
+            ORDER BY
+            <foreach
+                collection="orderByString"
+                item="item"
+                separator=","
+            >
+                ${item}
+            </foreach>
+        </if>
+    </select>
+    <select
+        id="read"
+        parameterType="com.service.management.system.domain.member.Member"
+        resultType="com.service.management.system.domain.member.Member"
+    >
+        SELECT *
+        , COUNT(*) AS total
+        , SUM(CASE WHEN projectType = 2 THEN 1 ELSE 0 END) AS completeProjectsNum
+        , (SUM(CASE WHEN projectType = 2 THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS ratio
+        FROM members
+        <include refid="joinProjects"></include>
+        <include refid="searchSql"></include>
+        GROUP BY members.no
     </select>
 
 </mapper>

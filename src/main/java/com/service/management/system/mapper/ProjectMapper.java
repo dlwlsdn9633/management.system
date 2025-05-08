@@ -6,4 +6,5 @@ import java.util.List;
 public interface ProjectMapper {
     int insert(Project project);
     List<Project> list(Project project);
+    Project read(Project project);
 }

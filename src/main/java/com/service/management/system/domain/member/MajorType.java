@@ -18,9 +18,10 @@ public enum MajorType {
     public int getCode() {
         return code;
     }
-    public String getCodes() {
+    public String getLabel() {
         return label;
     }
+
     public static MajorType fromCode(int code) {
         for (MajorType type : MajorType.values()) {
             if (type.getCode() == code) {

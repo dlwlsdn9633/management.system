@@ -2,6 +2,7 @@ package com.service.management.system.domain.area;
 
 import com.service.management.system.domain.Common;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter

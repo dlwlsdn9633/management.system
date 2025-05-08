@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,5 +9,20 @@
 </head>
 <body>
     Index Page
+    <div th:each="member : ${members}">
+        <a th:href="@{/members/{no}(no=${member.no})}">
+            <div th:text="${member.name}">이름</div>
+            <div>
+                <div>
+                    진행률
+                </div>
+                <div>
+                    <div th:text="${member.total}">전체 프로젝트 수</div>
+                    <div th:text="${member.completeProjectsNum}">완료 프로젝트 수</div>
+                    <div th:text="${member.ratio}">완료률</div>
+                </div>
+            </div>
+        </a>
+    </div>
 </body>
 </html>

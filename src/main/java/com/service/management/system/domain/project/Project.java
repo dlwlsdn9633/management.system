@@ -1,10 +1,13 @@
 package com.service.management.system.domain.project;
 
 import com.service.management.system.domain.Common;
+import com.service.management.system.domain.member.Member;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +25,12 @@ public class Project extends Common {
     private LocalDate expectedDate;
     private ProjectType projectType;
     private String contents;
+
+    private String area;
+    private String memberFks;
+    private String storeFilenames;
+    private List<Member> memberList;
+    private int commentMaxGno;
+    private int memberFk;
+
 }

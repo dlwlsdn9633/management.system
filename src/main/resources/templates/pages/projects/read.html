@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+    <div th:each="member : ${project.memberList}">
+        <div th:text="${member.name}">이름</div>
+        <div th:text="${member.majorType}">전공</div>
+        <div th:text="${member.memberType}"></div>
+    </div>
+    <div>
+        <p th:text="${project.contents}">내용</p>
+    </div>
+    <div>
+        <form method="post" action="/comments/write" enctype="multipart/form-data">
+            <textarea name="contents"></textarea>
+            <input type="file" name="files" multiple  />
+            <input type="hidden" name="projectFk" th:value="${project.no}" />
+            <input type="hidden" name="memberFk" th:value="0" />
+            <input type="hidden" name="groupNo" th:value="${project.commentMaxGno + 1}" />
+            <input type="hidden" name="step" th:value="0" />
+            <input type="hidden" name="depth" th:value="1" />
+            <input type="submit" value="제출" />
+        </form>
+    </div>
+    <div>
+        <div th:each="comment : ${comments}">
+            <div th:text="${comment.contents}">댓글 내용</div>
+            <form method="post" action="/comments/write" enctype="multipart/form-data">
+                <textarea name="contents"></textarea>
+                <input type="file" name="files" multiple />
+                <input type="hidden" name="projectFk" th:value="${project.no}" />
+                <input type="hidden" name="memberFk" th:value="0" />
+                <input type="hidden" name="groupNo" th:value="${comment.groupNo}" />
+                <input type="hidden" name="step" th:value="${comment.step + 1}">
+                <input type="hidden" name="depth" th:value="${comment.depth + 1}" />
+                <input type="submit" value="제출" />
+            </form>
+        </div>
+    </div>
 </body>
+<script>
+
+</script>
 </html>

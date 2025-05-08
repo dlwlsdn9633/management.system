@@ -1,6 +1,7 @@
 package com.service.management.system.util;
 
 import com.service.management.system.domain.fileObject.FileObject;
+import com.service.management.system.repository.fileObject.FileObjectRepository;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

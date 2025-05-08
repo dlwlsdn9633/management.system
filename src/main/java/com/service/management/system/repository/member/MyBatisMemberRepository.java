@@ -17,4 +17,8 @@ public class MyBatisMemberRepository implements MemberRepository {
     public List<Member> list(Member member) {
         return memberMapper.list(member);
     }
+    @Override
+    public Member read(Member member) {
+        return memberMapper.read(member);
+    }
 }
