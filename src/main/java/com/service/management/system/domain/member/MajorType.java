@@ -3,7 +3,7 @@ package com.service.management.system.domain.member;
 import java.util.*;
 
 public enum MajorType {
-    DEFAULT(0, "기본"),
+    DEFAULT(0, "-"),
     THEOLOGY_COLLEGE(1, "신학대학"),
     HUMANITIES_AND_SOCIAL_SCIENCES(2, "인문사회과학"),
     BUSINESS_COLLEGE(3, "경영대학"),

@@ -7,5 +7,7 @@ import java.util.List;
 public interface CommentRepository {
     int insert(Comment comment);
     List<Comment> list(Comment comment);
-    void updateStep(Comment comment);
+    int getMaxStep(Comment comment);
+    int updateStep(Comment comment);
+    int getMaxGroupNo(Comment comment);
 }

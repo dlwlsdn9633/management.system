@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -32,12 +34,14 @@ public class ProjectController {
         Project param = Project.builder().build();
         param.setNo(no);
         model.addAttribute("project", projectService.read(param));
-
         Comment commentParam = Comment.builder().build();
         commentParam.setProjectFk(no);
         model.addAttribute("comments", commentService.list(commentParam));
-
         return "pages/projects/read";
+    }
+    @GetMapping("/chunk")
+    public String chunkForm() {
+        return "pages/projects/chunk";
     }
     @PostMapping("/write")
     public String createProject(@ModelAttribute ProjectWriteDto projectWriteDto) {
@@ -46,5 +50,18 @@ public class ProjectController {
             return "redirect:/projects/write?error";
         }
         return "redirect:/projects/" + project.getNo();
+    }
+    @PostMapping("/chunk")
+    public String uploadExcelFile(@RequestParam("excel") MultipartFile file) {
+        if (file.isEmpty()) {
+            return "redirect:/project/chunk?error";
+        }
+        try {
+            projectService.processExcelFile(file);
+            return "redirect:/projects/chunk";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/project/chunk?error";
+        }
     }
 }

@@ -1,219 +1,270 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/projects/write.css" />
+
+    <th:block th:replace="~{fragments/header :: head}"></th:block>
 </head>
 <body>
+<div th:replace="~{fragments/navbar.html}"></div>
+
 <form method="post" action="/projects/write" enctype="multipart/form-data">
+    <h2>프로젝트 등록</h2>
 
-    <div id="selectedMembers">
+    <!-- 멤버 선택 -->
+    <div class="form-section">
+        <label class="form-label">참여자 선택</label>
+        <div id="selectedMembers"></div>
 
+        <select id="memberTypeSelect">
+            <option value="">-- 부서 및 학과 선택 --</option>
+            <option value="1">부서</option>
+            <option value="2">학과</option>
+        </select>
+
+        <div id="detailMemberTypes"></div>
+
+        <div style="margin-top: 10px;">
+            <button type="button" onclick="onClickAddBtn(event, this)">추가</button>
+        </div>
     </div>
 
-    <select id="memberTypeSelect">
-        <option value="">-- 부서 및 학과 선택 --</option>
-        <option value="1">부서</option>
-        <option value="2">학과</option>
-    </select>
-    <div id="detailMemberTypes">
-    </div>
-    <div>
-        <button onclick="onClickAddBtn(event, this)">추가</button>
+    <!-- 영역 선택 -->
+    <div class="form-section">
+        <label class="form-label">영역 선택</label>
+        <select id="areaTypeSelect">
+            <option value="">-- 영역 선택 --</option>
+            <option value="1">1 영역</option>
+            <option value="2">2 영역</option>
+            <option value="3">3 영역</option>
+            <option value="4">4 영역</option>
+            <option value="5">5 영역</option>
+        </select>
+
+        <select name="areaFk" id="areaSelect">
+            <option value="">-- 영역을 먼저 선택 하세요 --</option>
+        </select>
     </div>
 
+    <!-- 내용 작성 -->
+    <div class="form-section">
+        <label class="form-label">내용</label>
+        <textarea name="contents" placeholder="프로젝트 내용을 입력하세요..."></textarea>
+    </div>
 
-    <select id="areaTypeSelect">
-        <option value="">-- 영역 선택 --</option>
-        <option value="1">1 영역</option>
-        <option value="2">2 영역</option>
-        <option value="3">3 영역</option>
-        <option value="4">4 영역</option>
-        <option value="5">5 영역</option>
-    </select>
-    <select name="areaFk" id="areaSelect">
-        <option value="">-- 영역을 먼저 선택 하세요 --</option>
-    </select>
-    <textarea name="contents"></textarea>
-    <input type="date" name="requestDate" />
-    <input type="date" name="expectedDate" />
-    <input type="file" name="files" multiple />
-    <input type="submit" value="제출" />
+    <!-- 날짜 선택 -->
+    <div class="form-section">
+        <label class="form-label">요청 날짜</label>
+        <input type="date" name="requestDate" />
+
+        <label class="form-label">예상 완료 날짜</label>
+        <input type="date" name="expectedDate" />
+    </div>
+
+    <!-- 파일 업로드 -->
+    <div class="form-section">
+        <label class="form-label">첨부 파일</label>
+        <label class="file-upload">
+            파일 선택
+            <input type="file" name="files" id="fileInput" multiple />
+        </label>
+        <ul id="fileList" class="file-list"></ul> <!-- 파일 목록 표시용 -->
+    </div>
+
+    <!-- 제출 -->
+    <div class="form-section">
+        <input type="submit" value="제출" />
+    </div>
 </form>
 
+<script>
 
-<script lang="javascript">
-        function onDeleteMember(event, obj) {
-            event.preventDefault();
-            event.stopPropagation();
-            $(obj).parent().remove();
-        }
+    function onDeleteMember(event, obj) {
+    event.preventDefault();
+    event.stopPropagation();
+    $(obj).parent().remove();
+}
 
-        function onClickAddBtn(event, obj) {
-            event.preventDefault();
-            event.stopPropagation();
+function onClickAddBtn(event, obj) {
+    event.preventDefault();
+    event.stopPropagation();
 
-            // memberType
-            const memberType = $("#memberTypeSelect").val();
-            // majorType
-            const majorType = $("#majorSelect").val();
-            // memberFk
-            const memberFk = $("select[name='memberFk']").val();
-            $.ajax({
-                url: `/v1/members/${memberFk}`,
-                method: 'GET',
-                success: function(response) {
-                    if (response.success) {
-                        if (memberType === "1") {
-                            const departmentName = response.data.name;
-                            const departmentHtml = `
-                                <div class="selected-member" data-type="department" data-no="${response.data.no}">
-                                    <input type="hidden" name="memberFks" value="${response.data.no}" />
-                                    <span>부서 - ${departmentName}</span>
-                                    <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
-                                </div>
-                            `;
-                            $("#selectedMembers").append(departmentHtml);
-                        } else if (memberType === "2") {
+    const memberType = $("#memberTypeSelect").val();
+    const majorType = $("#majorSelect").val();
+    const memberFk = $("select[name='memberFk']").val();
 
-                            const majorName = response.data.name;
-                            const majorTypeLabel = response.data.majorTypeLabel;
-                            const majorHtml = `
-                                <div class="selected-member" data-type="major" data-no="${response.data.no}">
-                                    <input type="hidden" name="memberFks" value="${response.data.no}" />
-                                    <span>학과 - ${majorName} (${majorTypeLabel})</span>
-                                    <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
-                                </div>
-                            `;
-                            $("#selectedMembers").append(majorHtml);
-                        }
-                    }
-                },
-                error: function() {
-
+    $.ajax({
+        url: `/v1/members/${memberFk}`,
+        method: 'GET',
+        success: function(response) {
+            if (response.success) {
+                if (memberType === "1") {
+                    const departmentHtml = `
+                        <div class="selected-member">
+                            <input type="hidden" name="memberFks" value="${response.data.no}" />
+                            <span>부서 - ${response.data.name}</span>
+                            <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
+                        </div>`;
+                    $("#selectedMembers").append(departmentHtml);
+                } else if (memberType === "2") {
+                    const majorHtml = `
+                        <div class="selected-member">
+                            <input type="hidden" name="memberFks" value="${response.data.no}" />
+                            <span>학과 - ${response.data.name} (${response.data.majorTypeLabel})</span>
+                            <a href="javascript:;" class="delete-btn" onclick="onDeleteMember(event, this)">삭제</a>
+                        </div>`;
+                    $("#selectedMembers").append(majorHtml);
                 }
-            })
+            }
         }
+    });
+}
 
-        $(document).on('change', '#majorSelect', function() {
-            if ($("#member_select_box").length > 0) {
-                $("#member_select_box").remove();
-            }
-            const memberType = $("#memberTypeSelect").val();
-            const majorType = $(this).val();
-            const $detailMemberTypes =  $("#detailMemberTypes");
-            $.ajax({
-                url: `/v1/members?memberType=${memberType}&majorType=${majorType}`,
-                method: 'GET',
-                success: function(response) {
-                    if (response.success && Array.isArray(response.data)) {
-                        const $select = $('<select></select>').attr('name', 'memberFk').attr("id", "member_select_box").addClass('form-select');
-                        $.each(response.data, function(index, member) {
-                            const $option = $('<option></option>')
-                                    .val(member.no)
-                                    .text(member.name);
-                            $select.append($option);
-                        });
-                        $detailMemberTypes.append($select);
-                    }
-                },
-                error: function() {
-
-                }
-            })
-        });
-
-        $("#memberTypeSelect").on("change", function() {
-            const memberType = $(this).val();
-            const $detailMemberTypes =  $("#detailMemberTypes");
-            if (memberType === "") {
-                $detailMemberTypes.empty();
-                return;
-            }
-
-            $detailMemberTypes.empty();
-            if (memberType === "1") {
-                $.ajax({
-                    url: `/v1/members?memberType=${memberType}`,
-                    method: 'GET',
-                    success: function(response) {
-                        $detailMemberTypes.empty();
-                        if (response.success && Array.isArray(response.data)) {
-                            const $select = $('<select></select>').attr('name', 'memberFk').addClass('form-select');
-
-                            $.each(response.data, function(index, member) {
-                                const $option = $('<option></option>')
-                                        .val(member.no)
-                                        .text(member.name);
-                                $select.append($option);
-                            });
-
-                            $detailMemberTypes.append($select);
-                        }
-                    },
-                    error: function() {
-
-                    }
-                })
-            } else {
-                $.ajax({
-                    url: `/v1/members/majors`,
-                    method: 'GET',
-                    success: function(response) {
-                        const $select = $('<select></select>')
-                            .attr('id', 'majorSelect')
-                            .addClass('form-select');
-                        if (response.success && Array.isArray(response.data)) {
-                            const $select = $('<select></select>')
-                            .attr('id', 'majorSelect')
-                            .addClass('form-select');
-                            $select.append($('<option></option>').val("").text("--학과를 선택하세요--"));
-                            $.each(response.data, function(index, major) {
-                                const $option = $('<option></option>')
-                                        .val(major.code)
-                                        .text(major.label);
-                                $select.append($option);
-                            });
-                            $detailMemberTypes.append($select);
-                        }
-                    },
-                    error: function() {
-
-                    }
+$(document).on('change', '#majorSelect', function() {
+    if ($("#member_select_box").length > 0) {
+        $("#member_select_box").remove();
+    }
+    const memberType = $("#memberTypeSelect").val();
+    const majorType = $(this).val();
+    const $detailMemberTypes =  $("#detailMemberTypes");
+    $.ajax({
+        url: `/v1/members?memberType=${memberType}&majorType=${majorType}`,
+        method: 'GET',
+        success: function(response) {
+            if (response.success && Array.isArray(response.data)) {
+                const $select = $('<select></select>').attr('name', 'memberFk').attr("id", "member_select_box");
+                $.each(response.data, function(index, member) {
+                    const $option = $('<option></option>').val(member.no).text(member.name);
+                    $select.append($option);
                 });
+                $detailMemberTypes.append($select);
             }
-        });
+        }
+    });
+});
 
-        $("#areaTypeSelect").on("change", function() {
-            const areaType = $(this).val();
-            const $areaSelect = $("#areaSelect");
+$("#memberTypeSelect").on("change", function() {
+    const memberType = $(this).val();
+    const $detailMemberTypes = $("#detailMemberTypes");
+    $detailMemberTypes.empty();
 
-            $areaSelect.empty().append("<option>로딩 중...</option>");
-            if (!areaType) {
-                $areaSelect.empty().append("<option value=''>-- 선택 --</option>");
-                return;
-            }
+    if (!memberType) return;
 
-            $.ajax({
-                url: `/v1/areas/${areaType}`,
-                method: 'GET',
-                success: function(response) {
-                    $areaSelect.empty();
-                    if (response.success && Array.isArray(response.data)) {
-                        $.each(response.data, function(index, area) {
-                            $areaSelect.append(`<option value="${area.no}">${area.contents}</option>`);
-                        });
-
-                    } else {
-                        $areaSelect.append('<option value="">해당 영역 없음</option>');
-                    }
-                },
-                error: function() {
-                    $areaSelect.empty().append('<option value="">오류 발생</option>');
+    if (memberType === "1") {
+        $.ajax({
+            url: `/v1/members?memberType=1`,
+            method: 'GET',
+            success: function(response) {
+                if (response.success && Array.isArray(response.data)) {
+                    const $select = $('<select name="memberFk"></select>');
+                    $.each(response.data, function(index, member) {
+                        $select.append(`<option value="${member.no}">${member.name}</option>`);
+                    });
+                    $detailMemberTypes.append($select);
                 }
-            });
+            }
         });
+    } else {
+        $.ajax({
+            url: `/v1/members/majors`,
+            method: 'GET',
+            success: function(response) {
+                if (response.success && Array.isArray(response.data)) {
+                    const $select = $('<select id="majorSelect"></select>');
+                    $select.append('<option value="">--학과 선택--</option>');
+                    $.each(response.data, function(index, major) {
+                        $select.append(`<option value="${major.code}">${major.label}</option>`);
+                    });
+                    $detailMemberTypes.append($select);
+                }
+            }
+        });
+    }
+});
+
+$("#areaTypeSelect").on("change", function() {
+    const areaType = $(this).val();
+    const $areaSelect = $("#areaSelect").empty();
+
+    if (!areaType) {
+        $areaSelect.append("<option value=''>-- 선택 --</option>");
+        return;
+    }
+
+    $areaSelect.append("<option>로딩 중...</option>");
+    $.ajax({
+        url: `/v1/areas/${areaType}`,
+        method: 'GET',
+        success: function(response) {
+            $areaSelect.empty();
+            if (response.success && Array.isArray(response.data)) {
+                $.each(response.data, function(index, area) {
+                    $areaSelect.append(`<option value="${area.no}">${area.contents}</option>`);
+                });
+            } else {
+                $areaSelect.append('<option value="">해당 영역 없음</option>');
+            }
+        },
+        error: function() {
+            $areaSelect.append('<option value="">오류 발생</option>');
+        }
+    });
+});
+
+// 첨부 파일 목록 표시
+$("#fileInput").on("change", function () {
+    const fileList = $(this)[0].files;
+    const $fileListDisplay = $("#fileList");
+    $fileListDisplay.empty();
+
+    if (fileList.length === 0) {
+        $fileListDisplay.append("<li>선택된 파일이 없습니다.</li>");
+        return;
+    }
+
+    for (let i = 0; i < fileList.length; i++) {
+        const fileName = fileList[i].name;
+        const fileType = fileName.split('.').pop().toLowerCase();
+
+        // 파일 아이콘을 선택
+        let fileIcon = '';
+        if (fileType === 'pdf') {
+            fileIcon = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Pdf_file_icon.svg';
+        } else if (fileType === 'doc' || fileType === 'docx') {
+            fileIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Word2013.svg/1024px-Word2013.svg.png';
+        } else if (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png') {
+            fileIcon = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/PNG_file_icon.svg';
+        } else {
+            fileIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/File_extension_txt.svg/1024px-File_extension_txt.svg.png';
+        }
+
+        // 파일 목록에 아이템 추가
+        $fileListDisplay.append(`
+            <li>
+                <img src="${fileIcon}" class="file-icon" />
+                <span class="file-name">${fileName}</span>
+                <span class="remove-btn" onclick="removeFile(event, ${i})">삭제</span>
+            </li>
+        `);
+    }
+});
+
+// 파일 삭제 처리
+function removeFile(event, index) {
+    event.preventDefault();
+    const fileInput = document.getElementById('fileInput');
+    const fileList = fileInput.files;
+    const newFileList = Array.from(fileList).filter((_, i) => i !== index);
+
+    const dataTransfer = new DataTransfer();
+    newFileList.forEach(file => dataTransfer.items.add(file));
+    fileInput.files = dataTransfer.files;
+
+    // 파일 목록을 다시 갱신
+    const $fileListDisplay = $("#fileList");
+    $fileListDisplay.empty();
+    $("#fileInput").trigger("change");
+}
 </script>
 </body>
 </html>

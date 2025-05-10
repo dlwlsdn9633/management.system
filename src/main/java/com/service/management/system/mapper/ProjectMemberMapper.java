@@ -8,4 +8,5 @@ public interface ProjectMemberMapper {
     int insert(ProjectMember projectMember);
 
     List<ProjectMember> list(ProjectMember projectMember);
+    List<ProjectMember> listRemainingMembers(ProjectMember projectMember);
 }

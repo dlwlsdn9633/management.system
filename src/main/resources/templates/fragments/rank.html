@@ -1,12 +1,29 @@
-<div th:fragment="rankItem (rank)">
-    <div class="rank-item" th:if="${rank != null}">
-        <div th:text="${rank.name}">이름</div>
-        <div>
-            <div>진행률</div>
-            <div>
-                <div th:text="${rank.total}">전체</div>
-                <div th:text="${rank.completeProjectsNum}">완료</div>
-                <div th:text="${rank.ratio}">완료율</div>
+<div th:fragment="rankItem (rank, rankIndex)">
+    <div class="card shadow-sm border-light mb-4">
+        <div class="card-body">
+            <!-- Rank Number -->
+            <h5 class="card-title">
+                <span class="badge bg-primary" th:text="'#' + ${rankIndex}">#1</span>
+                <span th:text="${rank.name}">이름</span>
+            </h5>
+            <div class="mb-2">
+                <!-- Total Projects -->
+                <strong>Total Projects:</strong> <span th:text="${rank.total}">0</span>
+            </div>
+            <div class="mb-2">
+                <!-- Completed Projects -->
+                <strong>Completed Projects:</strong> <span th:text="${rank.completeProjectsNum}">0</span>
+            </div>
+            <div class="mb-2">
+                <!-- Completion Rate -->
+                <strong>Completion Rate:</strong> <span th:text="${rank.ratio}">0%</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress">
+                <div class="progress-bar" role="progressbar"
+                     th:style="'width: ' + ${rank.ratio} + '%'" th:aria-valuenow="${rank.ratio}"
+                     aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>

@@ -15,6 +15,9 @@
         <if test="memberFk != 0">
             AND project_member.memberFk = #{memberFk}
         </if>
+        <if test="daysRemaining != 0">
+            DATEDIFF(projects.expectedDate, CURRENT_DATE) >= 0 AND DATEDIFF(projects.expectedDate, CURRENT_DATE) = #{daysRemaining}
+        </if>
     </sql>
 
 
@@ -30,7 +33,22 @@
             #{memberFk}
         )
     </insert>
-
+    <select
+        id="listRemainingMembers"
+        parameterType="com.service.management.system.domain.projectMember.ProjectMember"
+        resultType="com.service.management.system.domain.projectMember.ProjectMember"
+    >
+        SELECT
+        members.name,
+        members.email,
+        DATEDIFF(projects.expectedDate, CURRENT_DATE) AS daysRemaining
+        FROM project_member
+        INNER JOIN projects
+            ON project_member.memberFk = projects.no
+        INNER JOIN members
+            ON members.no = project_member.projectFk
+        <include refid="searchSql"></include>
+    </select>
     <select
         id="list"
         parameterType="com.service.management.system.domain.projectMember.ProjectMember"

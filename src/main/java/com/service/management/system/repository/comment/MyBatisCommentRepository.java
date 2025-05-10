@@ -20,7 +20,15 @@ public class MyBatisCommentRepository implements CommentRepository {
         return commentMapper.list(comment);
     }
     @Override
-    public void updateStep(Comment comment) {
-        commentMapper.updateStep(comment);
+    public int getMaxStep(Comment comment) {
+        return commentMapper.getMaxStep(comment);
+    }
+    @Override
+    public int updateStep(Comment comment) {
+        return commentMapper.updateStep(comment);
+    }
+    @Override
+    public int getMaxGroupNo(Comment comment) {
+        return commentMapper.getMaxGroupNo(comment);
     }
 }

@@ -20,5 +20,15 @@ public class Comment extends Common {
     private int step;
     // depth: 깊이를 의미한다.
     private int depth;
-    private int commentMaxStep;
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "projectFk=" + projectFk +
+                ", memberFk=" + memberFk +
+                ", contents='" + contents + '\'' +
+                ", groupNo=" + groupNo +
+                ", step=" + step +
+                ", depth=" + depth +
+                '}';
+    }
 }

@@ -23,6 +23,7 @@
         FROM projects
         <include refid="searchSql"></include>
     </select>
+
     <select
         id="read"
         parameterType="com.service.management.system.domain.project.Project"
@@ -80,4 +81,5 @@
         #{projectType}
         )
     </insert>
+
 </mapper>

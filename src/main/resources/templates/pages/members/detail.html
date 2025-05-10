@@ -1,29 +1,41 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MEMBER DETAIL</title>
-    <div>
-        <div th:text="${member.name}">멤버 이름</div>
-        <div>
-            <div th:each="project: ${projectList}">
-                <div>
-                    <div>
-                        진행률
-                    </div>
-                    <div>
-                        <div th:text="${project.contents}"></div>
-                        <div th:text="${project.projectType}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <link rel="stylesheet" href="/css/members/detail.css" />
+
+    <th:block th:replace="~{fragments/header :: head}"></th:block>
+
 </head>
 <body>
+<!-- 네비게이션 바를 navbar.html로부터 포함 -->
+<div th:replace="~{fragments/navbar.html}"></div>
 
+<div class="container my-5">
+    <div class="member-info mb-5">
+        <h2 class="text-center" th:text="${member.name}">멤버 이름</h2>
+        <p class="text-center text-muted">진행했던 프로젝트들</p>
+    </div>
+
+    <div th:each="project: ${projectList}">
+        <!-- 링크는 여전히 존재하지만 시각적으로는 안 보이게 됨 -->
+        <a th:href="@{/projects/{no}(no=${project.projectFk})}">
+            <div class="project-card">
+                <h5 class="project-title" th:text="${project.name}">프로젝트 제목</h5>
+                <p class="project-description" th:text="${project.contents}">프로젝트 설명</p>
+
+                <div>
+                    <strong>상태: </strong><span class="project-type" th:text="${project.projectType.label}">상태</span>
+                </div>
+
+                <!-- 날짜 정보 추가 -->
+                <div class="project-dates">
+                    <p><span>요청 날짜: </span><span th:text="${project.requestDate}">요청 날짜</span></p>
+                    <p><span>예상 완료 날짜: </span><span th:text="${project.expectedDate}">예상 완료 날짜</span></p>
+                    <p><span>완료 날짜: </span><span th:text="${project.completeDate}">완료 날짜</span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 </body>
 </html>

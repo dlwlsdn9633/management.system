@@ -1,0 +1,60 @@
+/* 프로젝트 페이지의 스타일 개선 */
+.comment-write textarea, .comment-form textarea {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    margin-bottom: 15px;
+    min-height: 120px;
+}
+
+.comment-form .file-upload {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.comment-form input[type="file"] {
+    display: none;
+}
+
+/* 댓글 깊이에 따른 들여쓰기 */
+.comment.depth-1 {
+    margin-left: 20px;
+}
+
+.comment.depth-2 {
+    margin-left: 40px;
+}
+
+.comment.depth-3 {
+    margin-left: 60px;
+}
+
+.comment.depth-4 {
+    margin-left: 80px;
+}
+
+.comment.depth-5 {
+    margin-left: 100px;
+}
+
+/* 버튼 영역 여백 */
+button {
+    margin-top: 8px;
+}
+
+/* 파일 업로드 영역 여백 */
+.file-upload {
+    margin-top: 10px;
+}
+
+/* 파일 아이템 내부 간격 보정 */
+#fileList li span.remove-btn {
+    margin-left: auto;
+}

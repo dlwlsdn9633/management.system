@@ -71,4 +71,5 @@ public class MemberApiController {
         List<Map<String, Object>> labels = MajorType.getLabels();
         return ResponseEntity.ok(ApiResponse.success(labels));
     }
+
 }

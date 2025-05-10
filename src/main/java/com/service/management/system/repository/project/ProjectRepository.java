@@ -11,6 +11,7 @@ public interface ProjectRepository {
     Project read(Project project);
     List<Project> list(Project project);
     List<ProjectMember> listByMemberFk(ProjectMember projectMember);
+    List<ProjectMember> listRemainingMembers(ProjectMember projectMember);
     int insertProjectArea(ProjectArea projectArea);
     int insertProjectMember(ProjectMember projectMember);
 

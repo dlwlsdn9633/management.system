@@ -30,17 +30,13 @@ public class MemberController {
         param.setNo(no);
         Member readMember = memberService.read(param);
         model.addAttribute("member", readMember);
-
         ProjectMember projectMemberParam = ProjectMember.builder()
                 .memberFk(no)
                 .build();
         List<ProjectMember> projectList = projectService.listByMemberFk(projectMemberParam);
-
-
         model.addAttribute("projectList", projectList);
         return "pages/members/detail";
     }
-
     @GetMapping("/rank")
     public String rank(Model model) {
         Member param = Member.builder()
@@ -50,6 +46,4 @@ public class MemberController {
         model.addAttribute("rankList", rankList);
         return "pages/members/rank";
     }
-
-
 }

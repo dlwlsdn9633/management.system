@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CommentMapper {
     int insert(Comment comment);
-    void updateStep(Comment comment);
     List<Comment> list(Comment comment);
+    int getMaxStep(Comment comment);
+    int updateStep(Comment comment);
+    int getMaxGroupNo(Comment comment);
 }

@@ -1,7 +1,7 @@
 package com.service.management.system.domain.member;
 
 public enum MemberType {
-    DEFAULT(0, "DEFAULT"),
+    DEFAULT(0, "-"),
     DEPARTMENT(1, "부서"),
     MAJOR(2, "학과");
     private final int code;

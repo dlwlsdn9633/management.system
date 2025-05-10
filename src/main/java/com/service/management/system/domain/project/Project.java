@@ -32,5 +32,21 @@ public class Project extends Common {
     private List<Member> memberList;
     private int commentMaxGno;
     private int memberFk;
-
+    @Override
+    public String toString() {
+        return "Project{" +
+                "areaFk=" + areaFk +
+                ", requestDate=" + requestDate +
+                ", completeDate=" + completeDate +
+                ", expectedDate=" + expectedDate +
+                ", projectType=" + projectType +
+                ", contents='" + contents + '\'' +
+                ", area='" + area + '\'' +
+                ", memberFks='" + memberFks + '\'' +
+                ", storeFilenames='" + storeFilenames + '\'' +
+                ", memberList=" + memberList +
+                ", commentMaxGno=" + commentMaxGno +
+                ", memberFk=" + memberFk +
+                '}';
+    }
 }

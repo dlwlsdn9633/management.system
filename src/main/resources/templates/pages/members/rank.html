@@ -1,32 +1,18 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RANK PAGE</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-
-<div id="rankContainer">
-    <div th:each="rank : ${rankList}">
-        <div th:text="${rank.name}">이름</div>
-        <div>
-            <div>
-                진행률
-            </div>
-            <div>
-                <div th:text="${rank.total}">전체</div>
-                <div th:text="${rank.completeProjectsNum}">완료 프로젝트 수</div>
-                <div th:text="${rank.ratio}">완료율</div>
-            </div>
+<head th:replace="fragments/header :: head"></head>
+<body class="bg-light">
+<div th:replace="~{fragments/navbar.html}"></div>
+<div class="container my-5">
+    <div id="rankContainer" class="row g-4">
+        <!-- Thymeleaf rendering rank items here -->
+        <div th:each="rank, iterStat : ${rankList}" class="col-md-12">
+            <div th:if="${rank != null}"
+                 th:replace="~{fragments/rank :: rankItem(rank=${rank}, rankIndex=${iterStat.index + 1})}"></div>
         </div>
     </div>
 </div>
 
-</body>
 <script>
     $(document).ready(function() {
         let currentCode = 2;
@@ -35,7 +21,6 @@
                 if (status === "error") {
                     console.log("로드 실패");
                 }
-
             });
             currentCode = currentCode === 2 ? 1 : 2;
         }
@@ -43,8 +28,8 @@
         // 최초 실행 + 이후 5초 간격으로 반복
         loadRankData();
         setInterval(loadRankData, 5000);
-    })
-
-
+    });
 </script>
+
+</body>
 </html>

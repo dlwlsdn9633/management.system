@@ -1,47 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/projects/read.css}" />
 </head>
 <body>
-    <div th:each="member : ${project.memberList}">
-        <div th:text="${member.name}">이름</div>
-        <div th:text="${member.majorType}">전공</div>
-        <div th:text="${member.memberType}"></div>
+<div th:replace="~{fragments/navbar.html}"></div>
+
+<!-- 멤버 정보 -->
+<div class="member-list">
+    <div th:each="member : ${project.memberList}" class="member">
+        <span th:text="${member.name}">이름</span>
+        <span th:text="${member.majorType.label}">전공</span>
+        <span th:text="${member.memberType.label}">타입</span>
     </div>
-    <div>
+</div>
+
+<!-- 프로젝트 내용 (카드 스타일) -->
+<div class="project-content-card card">
+    <div class="project-card">
         <p th:text="${project.contents}">내용</p>
     </div>
-    <div>
-        <form method="post" action="/comments/write" enctype="multipart/form-data">
-            <textarea name="contents"></textarea>
-            <input type="file" name="files" multiple  />
-            <input type="hidden" name="projectFk" th:value="${project.no}" />
-            <input type="hidden" name="memberFk" th:value="0" />
-            <input type="hidden" name="groupNo" th:value="${project.commentMaxGno + 1}" />
-            <input type="hidden" name="step" th:value="0" />
-            <input type="hidden" name="depth" th:value="1" />
-            <input type="submit" value="제출" />
-        </form>
-    </div>
-    <div>
-        <div th:each="comment : ${comments}">
+</div>
+
+<!-- 댓글 작성 폼 (개선된 디자인) -->
+<div class="comment-write card">
+    <form method="post" action="/comments/write" enctype="multipart/form-data">
+        <textarea name="contents" placeholder="댓글을 입력하세요" required></textarea>
+
+        <div class="file-upload">
+            <label for="files">파일 선택</label>
+            <input type="file" name="files" id="files" multiple />
+        </div>
+
+        <input type="hidden" name="projectFk" th:value="${project.no}" />
+        <input type="hidden" name="memberFk" th:value="0" />
+        <input type="hidden" name="groupNo" th:value="1" />
+        <input type="hidden" name="step" th:value="0" />
+        <input type="hidden" name="depth" th:value="0" />
+
+        <input type="submit" value="댓글 작성" class="submit-btn" />
+    </form>
+</div>
+
+<!-- 댓글 목록 (카드 스타일) -->
+<div class="comment-list">
+    <div th:each="comment : ${comments}" th:class="'comment depth-' + ${comment.depth}">
+        <div class="comment-card card">
             <div th:text="${comment.contents}">댓글 내용</div>
-            <form method="post" action="/comments/write" enctype="multipart/form-data">
-                <textarea name="contents"></textarea>
-                <input type="file" name="files" multiple />
+
+            <!-- 대댓글 작성 폼 -->
+            <form method="post" action="/comments/write" enctype="multipart/form-data" class="comment-form">
+                <textarea name="contents" placeholder="대댓글을 입력하세요" required></textarea>
+
+                <div class="file-upload">
+                    <label for="files">파일 선택</label>
+                    <input type="file" name="files" multiple />
+                </div>
+
                 <input type="hidden" name="projectFk" th:value="${project.no}" />
                 <input type="hidden" name="memberFk" th:value="0" />
                 <input type="hidden" name="groupNo" th:value="${comment.groupNo}" />
-                <input type="hidden" name="step" th:value="${comment.step + 1}">
-                <input type="hidden" name="depth" th:value="${comment.depth + 1}" />
-                <input type="submit" value="제출" />
+                <input type="hidden" name="step" th:value="${comment.step}" />
+                <input type="hidden" name="depth" th:value="${comment.depth}" />
+                <input type="submit" value="대댓글 작성" class="submit-btn" />
             </form>
         </div>
     </div>
-</body>
-<script>
+</div>
 
-</script>
+</body>
 </html>

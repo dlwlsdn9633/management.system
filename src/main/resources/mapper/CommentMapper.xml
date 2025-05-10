@@ -28,13 +28,10 @@
         c.depth,
         c.registerDate,
         GROUP_CONCAT(storeFilename) AS storeFilenames,
-        GROUP_CONCAT(originalFilename) AS originalFilenames,
-        IFNULL(MAX(cc.step), 0) AS commentMaxStep
+        GROUP_CONCAT(originalFilename) AS originalFilenames
         FROM comments c
         LEFT JOIN fileobjects fo
         ON c.no = fo.commonNo AND fo.tablename = 'comments'
-        LEFT JOIN comments cc
-        ON c.groupNo = cc.groupNo AND c.depth = cc.depth
         <include refid="searchSql"></include>
         GROUP BY c.no
         ORDER BY groupNo ASC, step ASC, depth ASC, registerDate ASC
@@ -66,12 +63,43 @@
         #{depth}
         )
     </insert>
+
+    <select
+        id="getMaxStep"
+        parameterType="com.service.management.system.domain.comment.Comment"
+        resultType="int"
+    >
+        <![CDATA[
+            SELECT IFNULL(MAX(step), #{step})
+            FROM comments
+            WHERE step > #{step}
+            AND step < (
+                SELECT IFNULL(MIN(step), 2147483647)
+                FROM comments
+                WHERE step > #{step}
+                AND depth <= #{depth}
+                AND groupNo = #{groupNo}
+            )
+            AND depth = #{depth} + 1
+            AND groupNo = #{groupNo}
+            AND projectFk = #{projectFk}
+        ]]>
+    </select>
+
+    <!-- 대댓글을 생성할때 사용한다. -->
     <update
         id="updateStep"
         parameterType="com.service.management.system.domain.comment.Comment"
     >
-        UPDATE comments SET
-        step = step + 1
-        WHERE groupNo=#{groupNo} AND step > #{step}
+        UPDATE comments SET step = step + 1 WHERE step >= #{step} AND projectFk=#{projectFk}
     </update>
+
+    <!-- 댓글을 생성할 때 사용한다 -->
+    <select
+        id="getMaxGroupNo"
+        parameterType="com.service.management.system.domain.comment.Comment"
+        resultType="int"
+    >
+        SELECT IFNULL(MAX(groupNo), 0) FROM comments WHERE projectFk=#{projectFk}
+    </select>
 </mapper>

@@ -1,8 +1,8 @@
 <div th:fragment="rankListFragment">
-    <div th:each="rank : ${rankList}">
-        <div
-                th:if="${rank != null}"
-                th:replace="~{fragments/rank :: rankItem(rank=${rank})}"
-        ></div>
+    <div class="row g-4">
+        <div th:each="rank, iterStat : ${rankList}" class="col-md-12">
+            <div th:if="${rank != null}"
+                 th:replace="~{fragments/rank :: rankItem(rank=${rank}, rankIndex=${iterStat.index + 1})}"></div>
+        </div>
     </div>
 </div>

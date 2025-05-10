@@ -35,6 +35,9 @@ public class MyBatisProjectRepositoryImpl implements ProjectRepository {
         return projectMemberMapper.list(projectMember);
 
     }
+    public List<ProjectMember> listRemainingMembers(ProjectMember projectMember) {
+        return projectMemberMapper.listRemainingMembers(projectMember);
+    }
 
     @Override
     public int insertProjectArea(ProjectArea projectArea) {

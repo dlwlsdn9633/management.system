@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+</head>
+<body>
+<div th:replace="~{fragments/navbar.html}"></div>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">Excel 파일 업로드</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/projects/chunk" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="excelFile" class="form-label">Excel 파일 선택</label>
+                            <input type="file" class="form-control" id="excelFile" name="excel" accept=".xlsx,.xls" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">엑셀 업로드</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted text-center small">
+                    .xlsx 또는 .xls 형식만 업로드 가능합니다.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (옵션) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
