@@ -63,8 +63,19 @@
 <댓글 추가하는 서비스 로직 코드>
 
 #### 대댓글을 추가하는 방법 
-해당 쿼리문 조건을 만족하는 가장 큰 step을 찾는다. 그리고 찾은 step보다 크거나 같은 comment들을 모두 자기 step에 1을 더한 후 업데이트를 한다. 그리고 update한 step을 
+아래 쿼리는 현재 댓글 기준으로 다음 위치에 삽입 가능한 최소 step 값을 조회합니다. 조건을 만족하는 댓글이 없을 경우, 기본값 0을 반환합니다.
 
+<img width="448" alt="Image" src="https://github.com/user-attachments/assets/3944b10d-3159-4a30-a57f-b522c2319a16" />
+
+그 다음 자바 로직에서 중간 삽입 시, 해당 그룹 내에서 조회된 step 값보다 크거나 같은 모든 댓글들의 step 값을 1씩 증가시킵니다.
+
+<img width="452" alt="Image" src="https://github.com/user-attachments/assets/2190eca5-429c-4f95-81b9-8720f397130f" />
+
+<img width="443" alt="Image" src="https://github.com/user-attachments/assets/3bf39c51-e87c-4ea7-bfc8-91d2aca7bd83" />
+
+만약 nextStep을 구하는 쿼리에서 0을 반환한 경우, 이는 중간 삽입이 아닌 그룹 내 마지막에 삽입되는 새로운 대댓글을 의미하므로, getMaxStepInGroup()을 통해 그룹 내 가장 큰 step을 가져와 1을 더한 후 삽입합니다.
+
+<img width="448" alt="Image" src="https://github.com/user-attachments/assets/01b10d5e-7ae1-462c-9101-54b085ba84db" />
 
 ### 이메일 알림 및 리마인더
 프로젝트 진행 상황에 대한 알림과 리마인더를 이메일로 발송
