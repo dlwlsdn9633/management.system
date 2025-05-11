@@ -35,7 +35,7 @@
 ### 기타 사용 기술:
 - Quartz Scheduler: 스케줄러 기능
 - JavaMail: 이메일 발송 기능
-- POI 라이브러리: 엑셀 파일 첨부 기능
+- Apache POI 라이브러리: 엑셀 파일 첨부 기능
 
 ## 🖥️ 주요 기능
 - 프로젝트 진행 상황 추적
@@ -97,7 +97,10 @@ nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 �
 <p align="center"><img width="215" alt="Image" src="https://github.com/user-attachments/assets/4218ab97-b47e-455b-8f7d-7a39ccbea2a6" /></p>
 
 ### 엑셀 첨부 기능
-반복적인 프로젝트 생성 작업을 줄이기 위해, 엑셀 파일을 선택하고 업로드하면 해당 데이터를 자동으로 데이터베이스에 저장하는 기능을 구현했습니다.
+반복적인 프로젝트 생성 작업을 줄이기 위해, 엑셀 파일을 업로드하면 해당 데이터를 자동으로 데이터베이스에 저장하는 기능을 구현했습니다.
+
+해당 기능을 구현하기 위해 Microsoft Office 형식의 문서를 읽고 쓰는데 사용되는 Apache POI 라이브러리를 사용했습니다.
+
 <p align="center">
   <img width="400" src="https://github.com/user-attachments/assets/b34953db-083d-4568-90a3-1f8d5f31b988" />
   <br>⬇️<br>
