@@ -80,7 +80,21 @@ nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 �
 <p align="center"><img width="448" alt="Image" src="https://github.com/user-attachments/assets/01b10d5e-7ae1-462c-9101-54b085ba84db" /></p>
 
 ### 이메일 알림 및 리마인더
-프로젝트 진행 상황에 대한 알림과 리마인더를 이메일로 발송
+프로젝트 진행 상황을 가입된 멤버들에게 정기적으로 안내하기 위해 이메일 발송 시스템을 구현했습니다.
+
+실무에서 Quartz Scheduler를 사용하는 사례를 참고해 연습을 겸해 도입하였으며, 이를 통해 정해진 시간에 자동으로 이메일을 발송하도록 설정했습니다.
+
+먼저, Job 인터페이스를 구현한 AlertJob 클래스의 execute 메서드에서 실제 작업 로직을 정의했습니다.
+
+이 메서드에서는 프로젝트 마감일까지 1일, 2일, 3일, 7일, 14일이 남은 멤버들을 쿼리문으로 조회한 후, 해당 멤버들에게 안내 메일을 발송합니다.
+
+<p align="center"><img width="466" alt="Image" src="https://github.com/user-attachments/assets/9d8b46f3-1e0c-44e0-9ea0-50a45aa5bbb7" /></p>
+<p align="center"><img width="340" alt="Image" src="https://github.com/user-attachments/assets/ce5f0dc1-171c-4583-8a9b-bffb88258f08" /></p>
+
+이메일 발송에는 JavaMail을 사용하고, SMTP 서버는 네이버 메일을 연동하여 구성했습니다.
+
+<p align="center"><img width="302" alt="Image" src="https://github.com/user-attachments/assets/4695868c-808e-4fd3-8290-de768fc30bdb" /></p>
+<p align="center"><img width="215" alt="Image" src="https://github.com/user-attachments/assets/4218ab97-b47e-455b-8f7d-7a39ccbea2a6" /></p>
 
 ### 엑셀 첨부 기능
 프로젝트와 관련된 데이터를 엑셀 파일로 첨부하여 관리하는 기능
