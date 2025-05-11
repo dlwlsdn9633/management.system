@@ -58,12 +58,14 @@
 - 최상위 댓글은 항상 step이 0으로 시작합니다.
 - 이후 이 댓글에 대댓글이 달리면, step 값이 1씩 증가하며 정렬됩니다.
 
-<img width="473" alt="Image" src="https://github.com/user-attachments/assets/2617129f-1833-438f-8541-0502c539c839" />
+<p align="center"><img width="473" alt="Image" src="https://github.com/user-attachments/assets/2617129f-1833-438f-8541-0502c539c839" /></p>
 
-<img width="439" alt="Image" src="https://github.com/user-attachments/assets/76d499f8-e612-4137-b9af-476806cfcd97" />
+<p align="center"><img width="439" alt="Image" src="https://github.com/user-attachments/assets/76d499f8-e612-4137-b9af-476806cfcd97" /></p>
 
 #### 대댓글을 추가하는 방법 
-대댓글을 작성할 경우, 현재 댓글 기준으로 다음 위치에 삽입 가능한 최소 step 값을 조회합니다. 해당 조건을 만족하는 댓글이 없다면 기본값 0을 반환합니다.
+대댓글을 작성할 경우, 현재 댓글 기준으로 다음 위치에 삽입 가능한 최소 step 값을 조회합니다. 
+
+해당 조건을 만족하는 댓글이 없다면 기본값 0을 반환합니다.
 
 <p align="center"><img width="448" alt="Image" src="https://github.com/user-attachments/assets/3944b10d-3159-4a30-a57f-b522c2319a16" /></p>
 
