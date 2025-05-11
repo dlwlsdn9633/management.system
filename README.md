@@ -17,18 +17,21 @@
 
 ## 🛠️ 기술 스택
 ### 백엔드: 
-Spring Boot
+- Spring Boot
+- MyBatis
 
 ### 프론트엔드: 
-Thymeleaf, jQuery, JavaScript
+- Thymeleaf
+- jQuery
+- JavaScript
 
 ### 데이터베이스: 
-MySQL (InnoDB)
+- MySQL (InnoDB)
 
 ### 기타 사용 기술:
-Quartz Scheduler: 스케줄러 기능
-JavaMail: 이메일 발송 기능
-POI 라이브러리: 엑셀 파일 첨부 기능
+- Quartz Scheduler: 스케줄러 기능
+- JavaMail: 이메일 발송 기능
+- POI 라이브러리: 엑셀 파일 첨부 기능
 
 ## 🖥️ 주요 기능
 프로젝트 진행 상황 추적
