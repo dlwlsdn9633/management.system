@@ -1,21 +1,20 @@
 package com.service.management.system.domain.project;
 
-import com.service.management.system.domain.Common;
+import com.service.management.system.domain.enums.ProjectType;
 import com.service.management.system.domain.member.Member;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
+
+@Data
 @Builder
-public class Project extends Common {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Project {
+    private int no;
     private int areaFk;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate requestDate;
@@ -32,21 +31,7 @@ public class Project extends Common {
     private List<Member> memberList;
     private int commentMaxGno;
     private int memberFk;
-    @Override
-    public String toString() {
-        return "Project{" +
-                "areaFk=" + areaFk +
-                ", requestDate=" + requestDate +
-                ", completeDate=" + completeDate +
-                ", expectedDate=" + expectedDate +
-                ", projectType=" + projectType +
-                ", contents='" + contents + '\'' +
-                ", area='" + area + '\'' +
-                ", memberFks='" + memberFks + '\'' +
-                ", storeFilenames='" + storeFilenames + '\'' +
-                ", memberList=" + memberList +
-                ", commentMaxGno=" + commentMaxGno +
-                ", memberFk=" + memberFk +
-                '}';
-    }
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registerDate;
+    private String[] orderByString;
 }

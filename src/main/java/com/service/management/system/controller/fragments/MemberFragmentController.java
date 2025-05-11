@@ -1,7 +1,7 @@
 package com.service.management.system.controller.fragments;
 
 import com.service.management.system.domain.member.Member;
-import com.service.management.system.domain.member.MemberType;
+import com.service.management.system.domain.enums.MemberType;
 import com.service.management.system.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

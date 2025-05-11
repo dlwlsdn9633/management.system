@@ -1,4 +1,4 @@
-package com.service.management.system.domain.project;
+package com.service.management.system.domain.enums;
 
 public enum ProjectType {
     NOT_STARTED(0, "시작 전"),

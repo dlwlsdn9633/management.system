@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class AreaReadDto {
+public class AreaRequestDto {
     private int relNo;
 }

@@ -1,6 +1,6 @@
 package com.service.management.system.config.mybatis;
 
-import com.service.management.system.domain.member.MajorType;
+import com.service.management.system.domain.enums.MajorType;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

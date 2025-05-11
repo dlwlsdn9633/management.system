@@ -1,10 +1,8 @@
 package com.service.management.system.controller.mvc;
 
 import com.service.management.system.domain.member.Member;
-import com.service.management.system.domain.member.MemberType;
-import com.service.management.system.domain.project.Project;
+import com.service.management.system.domain.enums.MemberType;
 import com.service.management.system.service.MemberService;
-import com.service.management.system.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

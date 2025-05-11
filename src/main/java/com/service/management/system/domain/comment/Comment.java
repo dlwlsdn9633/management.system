@@ -1,16 +1,13 @@
 package com.service.management.system.domain.comment;
 
-import com.service.management.system.domain.Common;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
+@Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Comment extends Common {
+@AllArgsConstructor
+public class Comment {
+    private int no;
     private int projectFk;
     private int memberFk;
     private String contents;
@@ -20,15 +17,4 @@ public class Comment extends Common {
     private int step;
     // depth: 깊이를 의미한다.
     private int depth;
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "projectFk=" + projectFk +
-                ", memberFk=" + memberFk +
-                ", contents='" + contents + '\'' +
-                ", groupNo=" + groupNo +
-                ", step=" + step +
-                ", depth=" + depth +
-                '}';
-    }
 }

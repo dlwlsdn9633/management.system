@@ -2,10 +2,10 @@ package com.service.management.system.service;
 
 import com.service.management.system.domain.member.Member;
 import com.service.management.system.domain.project.Project;
-import com.service.management.system.domain.project.ProjectType;
+import com.service.management.system.domain.enums.ProjectType;
 import com.service.management.system.domain.projectArea.ProjectArea;
 import com.service.management.system.domain.projectMember.ProjectMember;
-import com.service.management.system.dto.project.ProjectWriteDto;
+import com.service.management.system.dto.project.ProjectRequestDto;
 import com.service.management.system.repository.member.MemberRepository;
 import com.service.management.system.repository.project.ProjectRepository;
 import com.service.management.system.util.ExcelUtil;
@@ -13,7 +13,6 @@ import com.service.management.system.util.Function;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -87,34 +86,34 @@ public class ProjectService {
             projectRepository.insertProjectArea(projectArea);
         }
     }
-    public Project write(ProjectWriteDto projectWriteDto) {
+    public Project write(ProjectRequestDto projectRequestDto) {
         Project project = Project.builder()
-                .contents(projectWriteDto.getContents())
-                .requestDate(projectWriteDto.getRequestDate())
-                .expectedDate(projectWriteDto.getExpectedDate())
+                .contents(projectRequestDto.getContents())
+                .requestDate(projectRequestDto.getRequestDate())
+                .expectedDate(projectRequestDto.getExpectedDate())
                 .projectType(ProjectType.NOT_STARTED)
-                .areaFk(projectWriteDto.getAreaFk())
+                .areaFk(projectRequestDto.getAreaFk())
                 .build();
         int insertResult = projectRepository.insert(project);
         if (insertResult > 0) {
             // 관계 테이블 삽입
-            insertProjectArea(project, projectWriteDto);
-            insertProjectMember(project, projectWriteDto);
-            fileObjectService.insertFiles(projectWriteDto.getFiles(), project.getNo(), TABLE_NAME);
+            insertProjectArea(project, projectRequestDto);
+            insertProjectMember(project, projectRequestDto);
+            fileObjectService.insertFiles(projectRequestDto.getFiles(), project.getNo(), TABLE_NAME);
             return project;
         }
         return null;
     }
-    private void insertProjectArea(Project project, ProjectWriteDto projectWriteDto) {
+    private void insertProjectArea(Project project, ProjectRequestDto projectRequestDto) {
         ProjectArea projectArea = ProjectArea.builder()
                 .projectFk(project.getNo())
-                .areaFk(projectWriteDto.getAreaFk())
+                .areaFk(projectRequestDto.getAreaFk())
                 .build();
         projectRepository.insertProjectArea(projectArea);
 
     }
-    private void insertProjectMember(Project project, ProjectWriteDto projectWriteDto) {
-        for (int memberFk : projectWriteDto.getMemberFks()) {
+    private void insertProjectMember(Project project, ProjectRequestDto projectRequestDto) {
+        for (int memberFk : projectRequestDto.getMemberFks()) {
             ProjectMember projectMember = ProjectMember.builder()
                     .projectFk(project.getNo())
                     .memberFk(memberFk)

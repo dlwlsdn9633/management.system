@@ -1,14 +1,19 @@
 package com.service.management.system.domain.projectArea;
 
-import com.service.management.system.domain.Common;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProjectArea extends Common {
+public class ProjectArea {
+    private int no;
     private int projectFk;
     private int areaFk;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registerDate;
+    private String[] orderByString;
 }

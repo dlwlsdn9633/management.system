@@ -1,16 +1,29 @@
 package com.service.management.system.domain.member;
 
-import com.service.management.system.domain.Common;
+import com.service.management.system.domain.enums.MajorType;
+import com.service.management.system.domain.enums.MemberType;
+import com.service.management.system.domain.enums.Role;
+import com.service.management.system.dto.member.MemberResponseDto;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class Member extends Common {
+public class Member {
+    private int no;
+    private String name;
+    private Role role;
+    private String tablename;
+    private int startPageRows;
+    private int limitPages;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registerDate;
+    private String[] orderByString;
+
     private String id;
     private String email;
     private String password;
@@ -19,8 +32,13 @@ public class Member extends Common {
     private int total;
     private int completeProjectsNum;
     private double ratio;
-    @Override
-    public String toString() {
-        return super.toString();
+
+    public MemberResponseDto getMemberResponseDto() {
+        return MemberResponseDto.builder()
+                .no(this.no)
+                .name(this.name)
+                .majorTypeLabel(this.majorType.getLabel())
+                .memberTypeLabel(this.memberType.getLabel())
+                .build();
     }
 }

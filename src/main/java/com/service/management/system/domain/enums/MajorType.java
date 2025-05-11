@@ -1,4 +1,4 @@
-package com.service.management.system.domain.member;
+package com.service.management.system.domain.enums;
 
 import java.util.*;
 

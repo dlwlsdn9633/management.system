@@ -1,14 +1,16 @@
 package com.service.management.system.dto.comment;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Data
-@RequiredArgsConstructor
-public class CommentWriteDto {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class CommentRequestDto {
     private String tablename;
     private int projectFk;
     private int memberFk;
@@ -16,5 +18,6 @@ public class CommentWriteDto {
     private int step;
     private int depth;
     private List<MultipartFile> files;
+    @NotBlank(message = "내용을 입력해 주세요")
     private String contents;
 }

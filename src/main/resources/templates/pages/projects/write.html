@@ -8,7 +8,7 @@
 <body>
 <div th:replace="~{fragments/navbar.html}"></div>
 
-<form method="post" action="/projects/write" enctype="multipart/form-data">
+<form th:object="${projectRequestDto}" method="post" action="/projects/write" enctype="multipart/form-data">
     <h2>프로젝트 등록</h2>
 
     <!-- 멤버 선택 -->
@@ -50,6 +50,10 @@
     <div class="form-section">
         <label class="form-label">내용</label>
         <textarea name="contents" placeholder="프로젝트 내용을 입력하세요..."></textarea>
+        <div
+                th:if="${#fields.hasErrors('contents')}"
+                th:errors="*{contents}"
+        ></div>
     </div>
 
     <!-- 날짜 선택 -->

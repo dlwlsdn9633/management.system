@@ -1,16 +1,19 @@
 package com.service.management.system.domain.area;
 
-import com.service.management.system.domain.Common;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Getter
-@Setter
+import java.time.LocalDate;
+
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Area extends Common {
+public class Area {
+    private int no;
     private String contents;
     private int areaType;
     private int relNo;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate registerDate;
 }

@@ -22,6 +22,18 @@
     </div>
 </div>
 
+<div class="project-content-card card">
+    <h4>파일 다운로드 목록</h4>
+    <ul>
+        <li th:each="fileName : ${files}">
+            <a
+                    th:text="${fileName}"
+                    th:href="@{/download/{fileName}(fileName=${fileName})}"
+            >파일 이름</a>
+        </li>
+    </ul>
+</div>
+
 <!-- 댓글 작성 폼 (개선된 디자인) -->
 <div class="comment-write card">
     <form method="post" action="/comments/write" enctype="multipart/form-data">

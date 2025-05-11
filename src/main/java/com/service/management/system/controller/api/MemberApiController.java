@@ -1,13 +1,12 @@
 package com.service.management.system.controller.api;
 
-import com.service.management.system.domain.member.MajorType;
+import com.service.management.system.domain.enums.MajorType;
 import com.service.management.system.domain.member.Member;
-import com.service.management.system.domain.member.MemberType;
+import com.service.management.system.domain.enums.MemberType;
 import com.service.management.system.dto.ApiResponse;
 import com.service.management.system.dto.member.MemberResponseDto;
 import com.service.management.system.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,28 +34,22 @@ public class MemberApiController {
     public ResponseEntity<?> read(
             @PathVariable("memberFk") int memberFk
     ) {
-        Member param = new Member();
-        param.setNo(memberFk);
-        Member readMember = memberService.read(param);
-        MemberResponseDto dto = MemberResponseDto.builder()
-                .no(readMember.getNo())
-                .name(readMember.getName())
-                .majorTypeLabel(readMember.getMajorType().getLabel())
-                .memberTypeLabel(readMember.getMemberType().getLabel())
-                .build();
-        return ResponseEntity.ok(ApiResponse.success(dto));
+
+        Member memberParam = Member.builder().no(memberFk).build();
+        Member readMember = memberService.read(memberParam);
+        MemberResponseDto memberResponseDto = readMember.getMemberResponseDto();
+        return ResponseEntity.ok(ApiResponse.success(memberResponseDto));
     }
     @GetMapping("/code/{code}")
     public ResponseEntity<?> rank(
             @PathVariable("code") Integer code
     ) {
         try {
-            MemberType memberType = MemberType.fromCode(code);
-            Member param = Member.builder()
-                    .memberType(memberType)
+            Member memberParam = Member.builder()
+                    .memberType(MemberType.fromCode(code))
+                    .orderByString(new String[] { "ratio DESC" })
                     .build();
-            param.setOrderByString(new String[] { "ratio DESC "});
-            List<Member> memberList = memberService.list(param);
+            List<Member> memberList = memberService.list(memberParam);
             return ResponseEntity.ok(ApiResponse.success(memberList));
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -71,5 +64,4 @@ public class MemberApiController {
         List<Map<String, Object>> labels = MajorType.getLabels();
         return ResponseEntity.ok(ApiResponse.success(labels));
     }
-
 }

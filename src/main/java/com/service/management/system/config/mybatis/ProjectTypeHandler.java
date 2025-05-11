@@ -1,6 +1,6 @@
 package com.service.management.system.config.mybatis;
 
-import com.service.management.system.domain.project.ProjectType;
+import com.service.management.system.domain.enums.ProjectType;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
