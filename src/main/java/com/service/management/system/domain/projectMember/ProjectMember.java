@@ -30,6 +30,7 @@ public class ProjectMember {
     private int no;
     private String name;
     private Role role;
+    private String email;
     private String tablename;
     private int startPageRows;
     private int limitPages;
