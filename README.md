@@ -15,6 +15,21 @@
 ## 🗄️ Entity Relationship Diagram
 ![Image](https://github.com/user-attachments/assets/e3d6805c-10b0-448d-93f2-1fb0cd9ee633)
 
+## 🛠️ 기술 스택
+### 백엔드: 
+Spring Boot
+
+### 프론트엔드: 
+Thymeleaf, jQuery, JavaScript
+
+### 데이터베이스: 
+MySQL (InnoDB)
+
+### 기타 사용 기술:
+Quartz Scheduler: 스케줄러 기능
+JavaMail: 이메일 발송 기능
+POI 라이브러리: 엑셀 파일 첨부 기능
+
 ## 🖥️ 주요 기능
 프로젝트 진행 상황 추적
 프로젝트의 진행 상태를 관리하고 추적하는 기능
@@ -24,18 +39,3 @@
 
 엑셀 첨부 기능
 프로젝트와 관련된 데이터를 엑셀 파일로 첨부하여 관리하는 기능
-
-## 🛠️ 기술 스택
-백엔드: Spring Boot
-
-프론트엔드: Thymeleaf, jQuery, JavaScript
-
-데이터베이스: MySQL
-
-기타 사용 기술:
-Quartz Scheduler: 스케줄러 기능
-
-JavaMail: 이메일 발송 기능
-
-Excel 라이브러리: 엑셀 파일 첨부 기능
-
