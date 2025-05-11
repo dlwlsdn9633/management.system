@@ -44,7 +44,7 @@
 프로젝트의 진행 상태를 관리하고 추적하는 기능
 
 ### 랭킹 시스템
-<p align="center">![Image](https://github.com/user-attachments/assets/d7f46a8c-4cf1-4b5f-a799-a419cbdb762e)</p>
+![Image](https://github.com/user-attachments/assets/d7f46a8c-4cf1-4b5f-a799-a419cbdb762e)
 
 렝킹 페이지에서는 부서 및 학과별 완료된 프로젝트 수를 기준으로 순위를 매겨 1위부터 나열합니다. 이전에는 프로젝트 데이터를 부서 및 학과별로 출력할 때 새로고침을 통해 페이지를 갱신했지만, 이번에는 Ajax를 사용하여 비동기적으로 데이터를 받아와 출력하는 방식으로 개선했습니다. 
 
