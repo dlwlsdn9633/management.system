@@ -52,9 +52,12 @@
 #### 댓글을 추가하는 방법
 댓글을 작성하면, 먼저 데이터베이스에 저장된 댓글들 중 가장 큰 그룹 ID를 조회한 뒤, 그 값에 1을 더해 새로운 댓글의 그룹 ID로 설정합니다. 댓글은 최상위 항목이므로 step 값은 0으로 초기화되며, 이후 이 댓글에 대댓글이 달릴 경우 step 값은 1씩 증가합니다.
 <img width="473" alt="Image" src="https://github.com/user-attachments/assets/2617129f-1833-438f-8541-0502c539c839" />
-- 데이터 베이스에 저장된 댓글들 중 가장 큰 그룹 ID를 조회하는 Query
+
+<데이터 베이스에 저장된 댓글들 중 가장 큰 그룹 ID를 조회하는 Query>
+
 <img width="439" alt="Image" src="https://github.com/user-attachments/assets/76d499f8-e612-4137-b9af-476806cfcd97" />
-- 댓글 추가하는 서비스 로직 코드
+
+<댓글 추가하는 서비스 로직 코드>
 
 #### 대댓글을 추가하는 방법 
 해당 쿼리문 조건을 만족하는 가장 큰 step을 찾는다. 그리고 찾은 step보다 크거나 같은 comment들을 모두 자기 step에 1을 더한 후 업데이트를 한다. 그리고 update한 step을 
