@@ -97,5 +97,12 @@ nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 �
 <p align="center"><img width="215" alt="Image" src="https://github.com/user-attachments/assets/4218ab97-b47e-455b-8f7d-7a39ccbea2a6" /></p>
 
 ### 엑셀 첨부 기능
-프로젝트와 관련된 데이터를 엑셀 파일로 첨부하여 관리하는 기능
+반복적인 프로젝트 생성 작업을 줄이기 위해, 엑셀 파일을 선택하고 업로드하면 해당 데이터를 자동으로 데이터베이스에 저장하는 기능을 구현했습니다.
+<p align="center">
+  <img width="400" src="https://github.com/user-attachments/assets/b34953db-083d-4568-90a3-1f8d5f31b988" />
+  &nbsp;&nbsp;&nbsp;➡️&nbsp;&nbsp;&nbsp;
+  <img width="400" src="https://github.com/user-attachments/assets/f4f3582b-6d32-49c0-8e58-aaec011c1d92" />
+  &nbsp;&nbsp;&nbsp;➡️&nbsp;&nbsp;&nbsp;
+  <img width="400" src="https://github.com/user-attachments/assets/fedf5f52-0e38-4de5-b943-0e1671f8356d" />
+</p>
 
