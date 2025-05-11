@@ -111,9 +111,13 @@ nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 �
   <img width="400" src="https://github.com/user-attachments/assets/fedf5f52-0e38-4de5-b943-0e1671f8356d" />
 </p>
 
-엑셀 데이터를 삽입하는 작업은 Service Layer의 processExcelFile 메소드에서 시작됩니다. 이 메소드에서는 try-with-resources 구문을 사용하여 InputStream을 열고, 엑셀 파일을 읽습니다. try-with-resources를 사용하면 모든 작업 처리 후 리소스를 자동으로 닫아주기 때문에, 자원을 효율적으로 관리할 수 있습니다.
+엑셀 데이터를 삽입하는 작업은 Service Layer의 processExcelFile 메소드에서 시작됩니다. 이 메소드에서는 try-with-resources 구문을 사용해 InputStream을 열고, 엑셀 파일을 읽습니다. try-with-resources를 활용하면 작업이끝난 후 리소스를 자동으로 정리해주기 때문에, 자원을 효율적으로 관리할 수 있습니다.    
 
-엑셀 파일은 XSSFWorkbook을 활용해 메모리로 로딩한 후, 지정된 시트의 모든 행을 순회하며 데이터를 처리합니다. 프로젝트 순서에 의존하지 않기 때문에, 처리 속도를 높이기 위해 ExecutorService를 활용한 병렬 처리를 도입했습니다.
+<p align="center"><img width="461" alt="Image" src="https://github.com/user-attachments/assets/bdac12b9-4298-4daa-a598-4b9a2f02d3b7" /></p>
 
-실제 행 단위 작업은 processRow 메소드에서 수행되며, 각 행을 보다 쉽게 다루기 위해 내부 클래스인 ProjectExcelRow를 정의해 사용했습니다. 이 클래스에서는 프로젝트 객체를 생성하고, 데이터베이스에 insert 작업을 수행합니다. 
+엑셀 파일은 XSSFWorkbook을 사용해 메모리로 로딩되며, 지정된 시트의 모든 행을 수행하며 데이터를 처리합니다. 프로젝트 간의 순서를 고려할 필요가 없기 때문에, 처리 성능을 높이기 위해 ExecutorService를 이용한 병렬 처리를 적용했습니다.  
 
+각 행에 대한 실제 작업은 processRow 메소드에서 수행됩니다. 행 데이터를 보다 체계적으로 다루기 위해 내부 클래스인 ProjectExcelRow를 정의했으며, 이 클래스에서는 프로젝트 객체를 생성하고 데이터베이스에 insert 작업을 진행합니다.
+
+<p align="center"><img width="383" alt="Image" src="https://github.com/user-attachments/assets/194be425-2f6c-4ca2-bc5b-29bde371b36c" /></p>
+<p align="center"><img width="479" alt="Image" src="https://github.com/user-attachments/assets/733b88e1-a10f-4cf8-aa6d-23fa1e9bc85c" /></p>
