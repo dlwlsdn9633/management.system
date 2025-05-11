@@ -48,6 +48,9 @@
 
 렝킹 페이지에서는 부서 및 학과별 완료된 프로젝트 수를 기준으로 순위를 매겨 1위부터 나열합니다. 이전에는 프로젝트 데이터를 부서 및 학과별로 출력할 때 새로고침을 통해 페이지를 갱신했지만, 이번에는 Ajax를 사용하여 비동기적으로 데이터를 받아와 출력하는 방식으로 개선했습니다. 
 
+<p align="center"><img width="632" alt="Image" src="https://github.com/user-attachments/assets/49a766f3-9d36-4dbd-9745-f47b7254e1c8" /></p>
+<p align="center"><img width="632" alt="Image" src="https://github.com/user-attachments/assets/e4d6d372-0527-4282-870d-01bbef001f13" /></p>
+
 Ajax 요청은 rankController를 호출해 memberService에서 멤버 랭킹 리스트를 조회한 후, 이를 fragment 형태로 반환받아 화면에 동적으로 출력합니다. 
 
 ## 🖥️ 추가 기능
