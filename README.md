@@ -111,3 +111,9 @@ nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 �
   <img width="400" src="https://github.com/user-attachments/assets/fedf5f52-0e38-4de5-b943-0e1671f8356d" />
 </p>
 
+엑셀 데이터를 삽입하는 작업은 Service Layer의 processExcelFile 메소드에서 시작됩니다. 이 메소드에서는 try-with-resources 구문을 사용하여 InputStream을 열고, 엑셀 파일을 읽습니다. try-with-resources를 사용하면 모든 작업 처리 후 리소스를 자동으로 닫아주기 때문에, 자원을 효율적으로 관리할 수 있습니다.
+
+엑셀 파일은 XSSFWorkbook을 활용해 메모리로 로딩한 후, 지정된 시트의 모든 행을 순회하며 데이터를 처리합니다. 프로젝트 순서에 의존하지 않기 때문에, 처리 속도를 높이기 위해 ExecutorService를 활용한 병렬 처리를 도입했습니다.
+
+실제 행 단위 작업은 processRow 메소드에서 수행되며, 각 행을 보다 쉽게 다루기 위해 내부 클래스인 ProjectExcelRow를 정의해 사용했습니다. 이 클래스에서는 프로젝트 객체를 생성하고, 데이터베이스에 insert 작업을 수행합니다. 
+
