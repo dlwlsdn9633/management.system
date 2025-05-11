@@ -63,19 +63,19 @@
 <img width="439" alt="Image" src="https://github.com/user-attachments/assets/76d499f8-e612-4137-b9af-476806cfcd97" />
 
 #### 대댓글을 추가하는 방법 
-아래 쿼리는 현재 댓글 기준으로 다음 위치에 삽입 가능한 최소 step 값을 조회합니다. 조건을 만족하는 댓글이 없을 경우, 기본값 0을 반환합니다.
+대댓글을 작성할 경우, 현재 댓글 기준으로 다음 위치에 삽입 가능한 최소 step 값을 조회합니다. 해당 조건을 만족하는 댓글이 없다면 기본값 0을 반환합니다.
 
-<img width="448" alt="Image" src="https://github.com/user-attachments/assets/3944b10d-3159-4a30-a57f-b522c2319a16" />
+<p align="center"><img width="448" alt="Image" src="https://github.com/user-attachments/assets/3944b10d-3159-4a30-a57f-b522c2319a16" /></p>
 
-그 다음 자바 로직에서 중간 삽입 시, 해당 그룹 내에서 조회된 step 값보다 크거나 같은 모든 댓글들의 step 값을 1씩 증가시킵니다.
+조회된 step 값보다 크거나 같은 기존 댓글들의 step 값을 1씩 증가시켜 대댓글 삽입 공간을 확보합니다.
 
-<img width="452" alt="Image" src="https://github.com/user-attachments/assets/2190eca5-429c-4f95-81b9-8720f397130f" />
+<p align="center"><img width="452" alt="Image" src="https://github.com/user-attachments/assets/2190eca5-429c-4f95-81b9-8720f397130f" /></p>
 
-<img width="443" alt="Image" src="https://github.com/user-attachments/assets/3bf39c51-e87c-4ea7-bfc8-91d2aca7bd83" />
+<p align="center"><img width="443" alt="Image" src="https://github.com/user-attachments/assets/3bf39c51-e87c-4ea7-bfc8-91d2aca7bd83" /></p>
 
-만약 nextStep을 구하는 쿼리에서 0을 반환한 경우, 이는 중간 삽입이 아닌 그룹 내 마지막에 삽입되는 새로운 대댓글을 의미하므로, getMaxStepInGroup()을 통해 그룹 내 가장 큰 step을 가져와 1을 더한 후 삽입합니다.
+nextStep이 0일 경우, 해당 그룹의 마지막에 삽입되는 새로운 대댓글임을 의미합니다. 이때는 getMaxStepInGroup()을 통해 가장 큰 step 값을 조회하고, 해당 값에 1을 더해 삽입합니다.
 
-<img width="448" alt="Image" src="https://github.com/user-attachments/assets/01b10d5e-7ae1-462c-9101-54b085ba84db" />
+<p align="center"><img width="448" alt="Image" src="https://github.com/user-attachments/assets/01b10d5e-7ae1-462c-9101-54b085ba84db" /></p>
 
 ### 이메일 알림 및 리마인더
 프로젝트 진행 상황에 대한 알림과 리마인더를 이메일로 발송
