@@ -44,6 +44,7 @@
 ## 🖥️ 추가 기능
 ### 무한 계층 구조의 댓글
 하나의 댓글에서 시작해, 대댓글을 무한히 추가할 수 있도록 설계된 유연한 댓글 시스템입니다.
+
 <img width="190" alt="Image" src="https://github.com/user-attachments/assets/99c51fe9-7f12-4758-bf29-b3c939c2d542" />
 - groupNo: 그룹 ID
 - step: 그룹 내 ID
