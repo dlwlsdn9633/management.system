@@ -1,6 +1,6 @@
 # 1. 제작 목적
 
-# 2. ERD CLOUD
+# 2. Entity Relationship Diagram
 
 # 3. 기본 기능
 
