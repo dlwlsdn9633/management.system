@@ -40,8 +40,26 @@
 - Apache POI 라이브러리: 엑셀 파일 첨부 기능
 
 ## 🖥️ 주요 기능
-- 프로젝트 진행 상황 추적
-프로젝트의 진행 상태를 관리하고 추적하는 기능
+### 프로젝트 진행 상황 추적
+사용자는 프로젝트 생성 이후, 각 프로젝트의 상태를 실시간으로 관리하고 추적할 수 있습니다.
+
+프로젝트의 상태는 ProjectType이라는 Enum 클래스에서 정의되며, 각 상태값은 NOT_STARTED, IN_PROGRESS, COMPLETED와 같이 단계별로 구성되어 있습니다.
+
+<p align="center">
+<img width="358" alt="Image" src="https://github.com/user-attachments/assets/c21cc975-6032-4e1c-9d94-d10708e12483" />
+</p>
+
+이 ProjectType Enum에는 getNextProjectType() 메서드가 구현되어 있어, 현재 상태 기준으로 다음 상태를 반환하는 로직이 포함되어 있습니다. 이를 통해 상태 전이를 Enum 내부에서 일관성 있게 제어할 수 있습니다. 
+
+<p align="center">
+  <img width="359" alt="Image" src="https://github.com/user-attachments/assets/8ef32486-a9c0-4429-89cd-9cd2e604ea59" />
+</p>
+
+프론트엔드에서는 Ajax 요청을 통해 REST API인 ProjectApiController의 엔드포인트를 호출하며, 해당 컨트롤러는 내부적으로 getNextProjectType()을 사용해 다음 상태값을 계산하고, JSON 형식으로 클라이언트에 응답합니다.
+
+<p align="center">
+  <img width="386" alt="Image" src="https://github.com/user-attachments/assets/d5bedf39-dfab-4d53-818f-6acfd80ac0da" />
+</p>
 
 ### 랭킹 시스템
 ![Image](https://github.com/user-attachments/assets/d7f46a8c-4cf1-4b5f-a799-a419cbdb762e)
