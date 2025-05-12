@@ -43,6 +43,8 @@
 ### 프로젝트 진행 상황 추적
 사용자는 프로젝트 생성 이후, 각 프로젝트의 상태를 실시간으로 관리하고 추적할 수 있습니다.
 
+![Image](https://github.com/user-attachments/assets/60dbdd50-a168-4b24-873d-43aab384f915)
+
 프로젝트의 상태는 ProjectType이라는 Enum 클래스에서 정의되며, 각 상태값은 NOT_STARTED, IN_PROGRESS, COMPLETED와 같이 단계별로 구성되어 있습니다.
 
 <p align="center">
